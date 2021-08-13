@@ -1,0 +1,4 @@
+.idea
+dist
+*.log
+.DS_Store
