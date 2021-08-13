@@ -1,7 +1,6 @@
 package migrate
 
 import (
-	"fmt"
 	"regexp"
 	"strings"
 )
@@ -19,7 +18,7 @@ func Function(line string) (*FunctionResult, error) {
 	r := regexp.MustCompile(p)
 	match := r.FindStringSubmatch(line)
 	groupNames := r.SubexpNames()
-	fmt.Printf("%v, %v, %d, %d\n", match, groupNames, len(match), len(groupNames))
+	//fmt.Printf("%v, %v, %d, %d\n", match, groupNames, len(match), len(groupNames))
 	result := &FunctionResult{}
 	if len(match) == len(groupNames) {
 		// 转换为map

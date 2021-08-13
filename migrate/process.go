@@ -51,7 +51,7 @@ func ProcessLine(line string) (string, error) {
 			if err != nil {
 				return "process equals has error", err
 			}
-			newLine := fmt.Sprintf("	require.Equal(%s, 2, %s)", r.expect, r.actual)
+			newLine := fmt.Sprintf("	require.Equal(t, %s, %s)", r.expect, r.actual)
 			return newLine, nil
 		}
 		if strings.Contains(line, " DeepEquals") {
@@ -59,7 +59,7 @@ func ProcessLine(line string) (string, error) {
 			if err != nil {
 				return "process equals has error", err
 			}
-			newLine := fmt.Sprintf("	require.Equal(%s, 2, %s)", r.expect, r.actual)
+			newLine := fmt.Sprintf("	require.Equal(t, %s, %s)", r.expect, r.actual)
 			return newLine, nil
 		}
 		if strings.Contains(line, " IsNil") {
