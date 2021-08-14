@@ -23,7 +23,10 @@ migrate-helper path/to/folder
 # all files under the folder and name ends with "_test.go" will be processed
 ```
 
-lines like `c.Assert(err, IsNil)` will be replaced to `require.NoError(t, err)`, then you can review and continue.
+lines like `c.Assert(err, IsNil)` will be replaced to `require.NoError(t, err)`, 
+then you can review and change other parts.
+
+![prview](docs/preview.png)
 
 ## supported 
 
