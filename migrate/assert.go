@@ -6,11 +6,11 @@ import (
 )
 
 type AssertResult struct {
-	match bool
-	caller string
-	actual string
+	match   bool
+	caller  string
+	actual  string
 	checker string
-	expect string
+	expect  string
 }
 
 func Equals(line string) (*AssertResult, error) {

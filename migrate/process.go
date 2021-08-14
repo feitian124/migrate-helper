@@ -2,12 +2,37 @@ package migrate
 
 import (
 	"bufio"
+	"bytes"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
 	"strings"
 )
+
+func Process(path string) {
+	// Get the current working directory
+	wd, err := os.Getwd()
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	// Print the current working directory
+	if !strings.HasPrefix(path, "/") {
+		path = wd + "/" + path
+	}
+
+	if _, exists := IsExists(path); exists {
+		if _, exists := IsFile(path); exists {
+			ProcessFile(path, path+"_updated")
+		}
+		if _, exists := IsDir(path); exists {
+			ProcessFolder(path)
+		}
+	}
+}
 
 // ProcessFolder 获取当前目录下的所有文件或目录信息
 func ProcessFolder(pwd string) {
@@ -15,15 +40,14 @@ func ProcessFolder(pwd string) {
 		if !info.IsDir() {
 			if strings.HasSuffix(info.Name(), "_test.go") {
 				fmt.Println(path)
-				ProcessFile(path)
 			}
 		}
 		return nil
 	})
 }
 
-func ProcessFile(file string) {
-	f, err := os.Open(file)
+func ProcessFile(infile string, outfile string) {
+	f, err := os.Open(infile)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -33,15 +57,17 @@ func ProcessFile(file string) {
 		}
 	}()
 	s := bufio.NewScanner(f)
+	var buffer bytes.Buffer
 	for s.Scan() {
 		line := s.Text()
 		line, _ = ProcessLine(line)
-		fmt.Println(line)
+		buffer.WriteString(line)
 	}
 	err = s.Err()
 	if err != nil {
 		log.Fatal(err)
 	}
+	ioutil.WriteFile(outfile, buffer.Bytes(), 0644)
 }
 
 func ProcessLine(line string) (string, error) {

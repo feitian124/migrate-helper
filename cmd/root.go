@@ -1,13 +1,11 @@
 package cmd
 
 import (
-	"fmt"
-	"strings"
-
+	"github.com/feitian124/migrate-helper/migrate"
 	"github.com/spf13/cobra"
 )
 
-var File string
+var path string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -17,8 +15,7 @@ var rootCmd = &cobra.Command{
 migrate-helper -f gocheck_tests.go
 "c.Assert(err, IsNil)" will be changed to "require.NoError(t, err)"`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("args: " + strings.Join(args, " "))
-		fmt.Println("file: " + File)
+		migrate.Process(path)
 	},
 }
 
@@ -29,7 +26,6 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.Flags().StringVarP(&File, "file", "f", "", "goChecker test file to migrate")
+	rootCmd.Flags().StringVarP(&path, "file", "f", "", "goChecker test file path to migrate, can be file or folder")
 	rootCmd.MarkFlagRequired("file")
 }
-

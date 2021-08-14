@@ -1,7 +1,7 @@
 # migrate-helper
 
-`tidb` project need to [restructure tests](https://github.com/pingcap/tidb/issues/26022), migrate its old `gocheck` tests to 
-`testify` tests. there are so many files need migrate, I write this helper to do the regular replacements, then
+`tidb` project need to [restructure tests](https://github.com/pingcap/tidb/issues/26022), migrating its old `gocheck` tests to 
+`testify` tests. there are so many files need to migrate that I write this helper to do the regular replacements, then
 manually check and update.
 
 ## install

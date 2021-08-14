@@ -6,11 +6,11 @@ import (
 )
 
 type FunctionResult struct {
-	match bool
+	match    bool
 	function string
-	caller string
-	name string
-	rest string
+	caller   string
+	name     string
+	rest     string
 }
 
 func Function(line string) (*FunctionResult, error) {
@@ -43,4 +43,3 @@ func Function(line string) (*FunctionResult, error) {
 
 	return result, nil
 }
-
