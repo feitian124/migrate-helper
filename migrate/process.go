@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
+	"github.com/feitian124/migrate-helper/cmd"
 	"io/ioutil"
 	"log"
 	"os"
@@ -53,11 +54,6 @@ func ProcessFile(infile string, outfile string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer func() {
-		if err = f.Close(); err != nil {
-			log.Fatal(err)
-		}
-	}()
 	s := bufio.NewScanner(f)
 	var buffer bytes.Buffer
 	for s.Scan() {
@@ -70,7 +66,18 @@ func ProcessFile(infile string, outfile string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	ioutil.WriteFile(outfile, buffer.Bytes(), 0644)
+	err = ioutil.WriteFile(outfile, buffer.Bytes(), 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err = f.Close(); err != nil {
+		log.Fatal(err)
+	}
+	if cmd.Overwrite {
+		os.Remove(infile)
+		os.Rename(outfile, infile)
+	}
+
 }
 
 func ProcessLine(line string) (string, error) {

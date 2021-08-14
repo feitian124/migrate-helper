@@ -5,13 +5,16 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var Overwrite bool
+
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "migrate-helper [path]",
+	Use:   "migrate-helper [-w] [path]",
 	Short: "help you migrate gocheck tests to testify tests",
 	Long: `help you migrate gocheck tests to testify tests. For example:
 migrate-helper -f gocheck_tests.go
 "c.Assert(err, IsNil)" will be changed to "require.NoError(t, err)"`,
+	Args: cobra.ExactValidArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		migrate.Process(args[0])
 	},
@@ -24,6 +27,5 @@ func Execute() {
 }
 
 func init() {
-	//rootCmd.Flags().StringVarP(&path, "file", "f", "", "goChecker test file path to migrate, can be file or folder")
-	//rootCmd.MarkFlagRequired("file")
+	rootCmd.Flags().BoolVarP(&Overwrite, "overwrite", "w", false, "Overwrite the original file instead of create new one")
 }
