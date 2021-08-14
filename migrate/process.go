@@ -30,7 +30,7 @@ func Process(path string) {
 
 	if _, exists := IsExists(path); exists {
 		if _, exists := IsFile(path); exists {
-			ProcessFile(path, path + SUFFIX)
+			ProcessFile(path, path+SUFFIX)
 		}
 		if _, exists := IsDir(path); exists {
 			ProcessFolder(path)
@@ -43,7 +43,7 @@ func ProcessFolder(pwd string) {
 	filepath.Walk(pwd, func(path string, info os.FileInfo, err error) error {
 		if !info.IsDir() {
 			if strings.HasSuffix(info.Name(), "_test.go") {
-				ProcessFile(path, path + SUFFIX)
+				ProcessFile(path, path+SUFFIX)
 			}
 		}
 		return nil
@@ -78,7 +78,6 @@ func ProcessFile(infile string, outfile string) {
 		os.Remove(infile)
 		os.Rename(outfile, infile)
 	}
-
 }
 
 func ProcessLine(line string) (string, error) {
