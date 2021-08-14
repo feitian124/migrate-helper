@@ -4,6 +4,8 @@
 `testify` tests. there are so many files need to migrate that I write this helper to do the regular replacements, then
 manually check and update.
 
+other projects which want to migrate from `gocheck` to `testify` can use too.
+
 ## install
 
 ```go
