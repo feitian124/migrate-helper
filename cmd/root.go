@@ -5,8 +5,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var Overwrite bool
-
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "migrate-helper [-w] [path]",
@@ -27,5 +25,5 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.Flags().BoolVarP(&Overwrite, "overwrite", "w", false, "Overwrite the original file instead of create new one")
+	rootCmd.Flags().BoolVarP(&migrate.Overwrite, "overwrite", "w", false, "Overwrite the original file instead of create new one")
 }

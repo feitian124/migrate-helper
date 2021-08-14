@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
-	"github.com/feitian124/migrate-helper/cmd"
 	"io/ioutil"
 	"log"
 	"os"
@@ -13,6 +12,8 @@ import (
 )
 
 const SUFFIX = "_updated"
+
+var Overwrite bool
 
 func Process(path string) {
 	// Get the current working directory
@@ -73,7 +74,7 @@ func ProcessFile(infile string, outfile string) {
 	if err = f.Close(); err != nil {
 		log.Fatal(err)
 	}
-	if cmd.Overwrite {
+	if Overwrite {
 		os.Remove(infile)
 		os.Rename(outfile, infile)
 	}
