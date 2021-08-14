@@ -44,7 +44,7 @@ func Process(path string) {
 		}
 	}
 
-	fmt.Printf("process status: %+v", *stat)
+	fmt.Printf("changed assert linds %d, func lins %d", stat.assert, stat.function)
 }
 
 // ProcessFolder 获取当前目录下的所有文件或目录信息
