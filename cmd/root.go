@@ -9,7 +9,7 @@ var path string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "migrate-helper",
+	Use:   "migrate-helper [path]",
 	Short: "help you migrate gocheck tests to testify tests",
 	Long: `help you migrate gocheck tests to testify tests. For example:
 migrate-helper -f gocheck_tests.go

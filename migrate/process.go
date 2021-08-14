@@ -11,6 +11,8 @@ import (
 	"strings"
 )
 
+const SUFFIX = "_updated"
+
 func Process(path string) {
 	// Get the current working directory
 	wd, err := os.Getwd()
@@ -26,7 +28,7 @@ func Process(path string) {
 
 	if _, exists := IsExists(path); exists {
 		if _, exists := IsFile(path); exists {
-			ProcessFile(path, path+"_updated")
+			ProcessFile(path, path + SUFFIX)
 		}
 		if _, exists := IsDir(path); exists {
 			ProcessFolder(path)
@@ -39,7 +41,7 @@ func ProcessFolder(pwd string) {
 	filepath.Walk(pwd, func(path string, info os.FileInfo, err error) error {
 		if !info.IsDir() {
 			if strings.HasSuffix(info.Name(), "_test.go") {
-				fmt.Println(path)
+				ProcessFile(path, path + SUFFIX)
 			}
 		}
 		return nil
@@ -62,6 +64,7 @@ func ProcessFile(infile string, outfile string) {
 		line := s.Text()
 		line, _ = ProcessLine(line)
 		buffer.WriteString(line)
+		buffer.WriteString("\n")
 	}
 	err = s.Err()
 	if err != nil {
