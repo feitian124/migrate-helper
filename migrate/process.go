@@ -15,6 +15,13 @@ const SUFFIX = "_updated"
 
 var Overwrite bool
 
+type Stat struct {
+	function int
+	assert int
+}
+
+var stat *Stat = &Stat{}
+
 func Process(path string) {
 	// Get the current working directory
 	wd, err := os.Getwd()
@@ -36,6 +43,8 @@ func Process(path string) {
 			ProcessFolder(path)
 		}
 	}
+
+	fmt.Printf("process status: %+v", stat)
 }
 
 // ProcessFolder 获取当前目录下的所有文件或目录信息
@@ -82,6 +91,7 @@ func ProcessFile(infile string, outfile string) {
 
 func ProcessLine(line string) (string, error) {
 	if strings.Contains(line, ".Assert(") {
+		stat.assert++
 		if strings.Contains(line, " Equals") {
 			r, err := Equals(line)
 			if err != nil {
@@ -154,6 +164,7 @@ func ProcessLine(line string) (string, error) {
 			newLine := fmt.Sprintf("	require.GreaterOrEqual(t, %s)", r.actual)
 			return newLine, nil
 		}
+		stat.assert--
 	}
 
 	if strings.Contains(line, "func ") && strings.Contains(line, " Test") {
@@ -163,6 +174,7 @@ func ProcessLine(line string) (string, error) {
 		}
 		if r.match {
 			newLine := fmt.Sprintf("func %s(t *testing.T) {", r.name)
+			stat.function++
 			return newLine, nil
 		}
 		return line, nil
