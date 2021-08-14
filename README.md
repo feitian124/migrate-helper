@@ -13,11 +13,14 @@ go install github.com/feitian124/migrate-helper
 ## usage
 
 ```shell
-migrate-helper path/to/my_gocheck_test.go # path/to/my_gocheck_test.go_updated will created
+migrate-helper path/to/my_gocheck_test.go 
+# path/to/my_gocheck_test.go_updated will created
 
-migrate-helper -w path/to/my_gocheck_test.go # path/to/my_gocheck_test.go will updated
+migrate-helper -w path/to/my_gocheck_test.go 
+# path/to/my_gocheck_test.go will updated
 
-migrate-helper path/to/folder # all files under the folder and name ends with "_test.go" will be processed
+migrate-helper path/to/folder 
+# all files under the folder and name ends with "_test.go" will be processed
 ```
 
 lines like `c.Assert(err, IsNil)` will be replaced to `require.NoError(t, err)`, then you can review and continue.
