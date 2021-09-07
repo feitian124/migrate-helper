@@ -147,3 +147,20 @@ func TestGreater(t *testing.T) {
 		require.Equal(t, v.result, x)
 	}
 }
+
+func TestHasLen(t *testing.T) {
+	table := []struct {
+		line   string
+		result *AssertResult
+	}{
+		{"c.Assert(vals, HasLen, 2)",
+			&AssertResult{match: true, caller: "c", actual: "vals", checker: "HasLen", expect: "2"},
+		},
+	}
+
+	for _, v := range table {
+		x, err := HasLen(v.line)
+		require.NoError(t, err)
+		require.Equal(t, v.result, x)
+	}
+}

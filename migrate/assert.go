@@ -56,6 +56,11 @@ func GreaterEqual(line string) (*AssertResult, error) {
 	return nil, nil
 }
 
+func HasLen(line string) (*AssertResult, error) {
+	p := `(?P<caller>\w+)\.Assert\((?P<actual>.+),(?P<checker>\s*HasLen),(?P<expect>.+)\)`
+	return Assert(line, p)
+}
+
 func Assert(line string, p string) (*AssertResult, error) {
 	r := regexp.MustCompile(p)
 	match := r.FindStringSubmatch(line)
