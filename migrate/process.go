@@ -113,6 +113,10 @@ func ProcessLine(line string) (string, error) {
 			if err != nil {
 				return "process equals has error", err
 			}
+			if r.actual == "err" {
+				newLine := fmt.Sprintf("	require.NoError(t, %s)", r.actual)
+				return newLine, nil
+			}
 			newLine := fmt.Sprintf("	require.Nil(t, %s)", r.actual)
 			return newLine, nil
 		}
@@ -120,6 +124,10 @@ func ProcessLine(line string) (string, error) {
 			r, err := NotNil(line)
 			if err != nil {
 				return "process equals has error", err
+			}
+			if r.actual == "err" {
+				newLine := fmt.Sprintf("	require.Error(t, %s)", r.actual)
+				return newLine, nil
 			}
 			newLine := fmt.Sprintf("	require.NotNil(t, %s)", r.actual)
 			return newLine, nil

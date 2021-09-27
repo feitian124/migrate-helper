@@ -24,7 +24,9 @@ func TestProcessLine(t *testing.T) {
 			`func (s *testRangerSuite) TestTableRange(c *C) {`,
 			`func TestTableRange(t *testing.T) {`,
 		},
-		{ "c.Assert(err, IsNil)", "require.Nil(t, err)" },
+		{ "c.Assert(err, IsNil)", "require.NoError(t, err)" },
+		{ "c.Assert(name, IsNil)", "require.Nil(t, name)" },
+		{ "c.Assert(err, NotNil)", "require.Error(t, err)" },
 		{ "c.Assert(exist, IsTrue)", "require.True(t, exist)" },
 	}
 
