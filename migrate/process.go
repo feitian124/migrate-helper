@@ -148,6 +148,15 @@ func ProcessLine(line string) (string, error) {
 			newLine := fmt.Sprintf("	require.False(t, %s)", r.actual)
 			return newLine, nil
 		}
+		// this should before Greater, otherwise will match it
+		if strings.Contains(line, " GreaterEqual") {
+			r, err := GreaterEqual(line)
+			if err != nil {
+				return "process equals has error", err
+			}
+			newLine := fmt.Sprintf("	require.GreaterOrEqual(t, %s, %s)", r.actual, r.expect)
+			return newLine, nil
+		}
 		if strings.Contains(line, " Greater") {
 			r, err := Greater(line)
 			if err != nil {
@@ -161,17 +170,10 @@ func ProcessLine(line string) (string, error) {
 			if err != nil {
 				return "process equals has error", err
 			}
-			newLine := fmt.Sprintf("	require.LessOrEqual(t, %s)", r.actual)
+			newLine := fmt.Sprintf("	require.LessOrEqual(t, %s, %s)", r.actual, r.expect)
 			return newLine, nil
 		}
-		if strings.Contains(line, " GreaterEqual") {
-			r, err := GreaterEqual(line)
-			if err != nil {
-				return "process equals has error", err
-			}
-			newLine := fmt.Sprintf("	require.GreaterOrEqual(t, %s)", r.actual)
-			return newLine, nil
-		}
+
 		stat.assert--
 	}
 

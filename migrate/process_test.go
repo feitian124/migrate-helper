@@ -28,6 +28,9 @@ func TestProcessLine(t *testing.T) {
 		{ "c.Assert(name, IsNil)", "require.Nil(t, name)" },
 		{ "c.Assert(err, NotNil)", "require.Error(t, err)" },
 		{ "c.Assert(exist, IsTrue)", "require.True(t, exist)" },
+		{ "c.Assert(len(topN.TopN), LessEqual, 40)", "require.LessOrEqual(t, len(topN.TopN), 40)" },
+		{ "c.Assert(foundIdx, GreaterEqual, 0)", "require.GreaterOrEqual(t, foundIdx, 0)" },
+
 	}
 
 	for _, v := range table {

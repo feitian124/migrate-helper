@@ -49,11 +49,13 @@ func Greater(line string) (*AssertResult, error) {
 }
 
 func LessEqual(line string) (*AssertResult, error) {
-	return nil, nil
+	p := `(?P<caller>\w+)\.Assert\((?P<actual>.+),(?P<checker>\s*LessEqual),(?P<expect>.+)\)`
+	return Assert(line, p)
 }
 
 func GreaterEqual(line string) (*AssertResult, error) {
-	return nil, nil
+	p := `(?P<caller>\w+)\.Assert\((?P<actual>.+),(?P<checker>\s*GreaterEqual),(?P<expect>.+)\)`
+	return Assert(line, p)
 }
 
 func HasLen(line string) (*AssertResult, error) {
