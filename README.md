@@ -32,11 +32,16 @@ then you can review and change other parts.
 
 ## supported 
 
-- Equals
-- IsNil
-- Greater
-- Less
+- Equals, DeepEquals
+- IsNil, NotNil, IsTrue, IsFalse
+- Greater, GreaterEqual, LessEqual
+- HasLen
 
 ...
 
 see tests for full list.
+
+## known issue
+
+- Assert with `Commentf` not support yet
+- Assert with multiline string as param not support yet
