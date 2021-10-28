@@ -22,6 +22,10 @@ func TestEquals(t *testing.T) {
 		{`c.Assert(getAllEvicted(ssbde), Equals, "{begin: 5, end: 6, count: 1}, {begin: 1, end: 2, count: 2}")`,
 			&AssertResult{match: true, caller: "c", actual: "getAllEvicted(ssbde)", checker: "Equals", expect: `"{begin: 5, end: 6, count: 1}, {begin: 1, end: 2, count: 2}"`},
 		},
+		// TODO: add support to Commentf
+		//{`c.Assert(len(warnings), Equals, 0, Commentf("expected no warning, got: %+v", warnings))`,
+		//	&AssertResult{match: true, caller: "c", actual: "len(warnings)", checker: "Equals", expect: `0`},
+		//},
 	}
 
 	for _, v := range table {

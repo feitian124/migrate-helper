@@ -91,6 +91,9 @@ func ProcessFile(infile string, outfile string) {
 
 func ProcessLine(line string) (string, error) {
 	if strings.Contains(line, ".Assert(") {
+		if strings.Contains(line, "Commentf(") {
+			return line, nil
+		}
 		stat.assert++
 		if strings.Contains(line, " Equals") {
 			r, err := Equals(line)
